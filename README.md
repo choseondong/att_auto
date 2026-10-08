@@ -6,9 +6,9 @@
 
 | 파일 | 역할 |
 | --- | --- |
-| `tests/real/real_att.spec.js` | 18시 이후 근무 계정 6개(work1~6) 출근 후 퇴근. 선택근무는 근무 일정이 없으면 신청·상신 후 재진입해 출근. |
+| `tests/real/real_att.spec.js` | 18시 이후 근무 계정 6개(work1~6) 출근 후 퇴근. 선택근무는 근무 일정이 없으면 신청·상신 후 재진입해 출근. 보통 배포때 사용|
 | `tests/real/real_att_reset.spec.js` | 위 계정 6개의 출퇴근 기록만 초기화. |
-| `tests/real/real_att_day.spec.js` | 낮 근무 계정 6개(work101~106) 출근 후 퇴근. |
+| `tests/real/real_att_day.spec.js` | 낮 근무 계정 6개(work101~106) 출근 후 퇴근. 09시 부터 ~18시 테스트 용도|
 | `tests/real/real_att_day_reset.spec.js` | 위 계정 6개의 출퇴근 기록만 초기화. |
 
 ## 준비
