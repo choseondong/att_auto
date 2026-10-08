@@ -1,0 +1,6 @@
+node_modules/
+test-results/
+playwright-report/
+real_att_results/
+real_att_day_results/
+.env

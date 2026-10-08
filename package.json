@@ -1,0 +1,19 @@
+{
+  "name": "real-att-tests",
+  "version": "1.0.0",
+  "description": "네이버웍스 real 환경 출퇴근 위젯 자동 점검 (Playwright)",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test:att": "playwright test tests/real/real_att.spec.js",
+    "test:att:headed": "playwright test tests/real/real_att.spec.js --headed",
+    "test:att:reset": "playwright test tests/real/real_att_reset.spec.js",
+    "test:day": "playwright test tests/real/real_att_day.spec.js",
+    "test:day:headed": "playwright test tests/real/real_att_day.spec.js --headed",
+    "test:day:reset": "playwright test tests/real/real_att_day_reset.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "dotenv": "^17.4.2"
+  }
+}
