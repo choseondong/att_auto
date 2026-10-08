@@ -11,6 +11,16 @@
 | `tests/real/real_att_day.spec.js` | 낮 근무 계정 6개(work101~106) 출근 후 퇴근. 09시 부터 ~18시 테스트 용도|
 | `tests/real/real_att_day_reset.spec.js` | 위 계정 6개의 출퇴근 기록만 초기화. |
 
+## 사전 설정: 출퇴근 허용 IP 등록
+
+테스트를 돌리는 PC의 공인 IP가 각 계정의 근무 방식에 허용 IP로 등록되어 있어야 합니다. 등록되지 않으면 "현재 IP 주소에서는 출퇴근을 체크할 수 없습니다." 토스트와 함께 해당 계정은 건너뛰어집니다.
+
+1. 관리자 계정으로 관리자 서비스에 들어가 **근태 > 근무 > 근무 방식 관리**를 엽니다.
+2. 테스트 계정이 쓰는 근무 방식(고정·선택·시차·교대·탄력·개인별일정)마다 **수정**을 누릅니다.
+3. 아래 사진처럼 출퇴근 체크 IP 설정에서 **본인 PC의 IP를 직접 입력**하고 저장합니다.
+4. 네트워크(사무실, 재택, VPN)가 바뀌면 공인 IP도 바뀌므로 다시 등록해야 합니다.
+<img width="1493" height="827" alt="근무 방식 지정 IP" src="https://github.com/user-attachments/assets/8225c07b-4b11-4b9d-aec1-ed039d52b210" />
+
 ## 준비
 
 ```bash
@@ -25,9 +35,10 @@ cp .env.example .env   # 계정 아이디/비밀번호 값을 채웁니다
 ## 실행
 
 ```bash
-npm run test:att            # 야간 계정 출퇴근
+npm run test:att            # 18시 이후 배포 시 계정 출퇴근
 npm run test:att:headed     # 브라우저 창을 보면서
 npm run test:att:reset      # 야간 계정 초기화
+
 npm run test:day            # 낮 계정 출퇴근
 npm run test:day:reset      # 낮 계정 초기화
 ```
