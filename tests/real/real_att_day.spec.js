@@ -5,11 +5,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// 계정 비밀번호는 코드에 두지 않고 .env 의 REAL_ATT_PASSWORD 로 읽는다 (여섯 계정 공통).
-const REAL_ATT_PASSWORD = process.env.REAL_ATT_PASSWORD;
+// 계정 아이디와 비밀번호는 코드에 두지 않고 .env 에서 읽는다 (.env.example 참고).
+function requireEnv(name) {
+    const value = process.env[name];
 
-if (!REAL_ATT_PASSWORD) {
-    throw new Error('.env 에 REAL_ATT_PASSWORD 값이 필요합니다. (.env.example 참고)');
+    if (!value) {
+        throw new Error(`.env 에 ${name} 값이 필요합니다. (.env.example 참고)`);
+    }
+
+    return value;
 }
 
 // 결과 스크린샷 폴더: 프로젝트 루트/real_att_day_results (실행 시작 시 비운다)
@@ -88,12 +92,12 @@ async function waitForToastSettled(page, timeoutMs = 600) {
 }
 
 const attendanceAccounts = [
-    { label: '낮고정근무', id: 'work101@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '낮선택근무', id: 'work102@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '낮시차근무', id: 'work103@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '낮교대근무', id: 'work104@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '낮탄력근무', id: 'work105@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '낮개인별일정근무', id: 'work106@ncpworkplace.net', password: REAL_ATT_PASSWORD },
+    { label: '낮고정근무', id: requireEnv('REAL_ATT_DAY_FIXED_ID'), password: requireEnv('REAL_ATT_DAY_FIXED_PW') },
+    { label: '낮선택근무', id: requireEnv('REAL_ATT_DAY_FREE_ID'), password: requireEnv('REAL_ATT_DAY_FREE_PW') },
+    { label: '낮시차근무', id: requireEnv('REAL_ATT_DAY_PICK_ID'), password: requireEnv('REAL_ATT_DAY_PICK_PW') },
+    { label: '낮교대근무', id: requireEnv('REAL_ATT_DAY_SHIFT_ID'), password: requireEnv('REAL_ATT_DAY_SHIFT_PW') },
+    { label: '낮탄력근무', id: requireEnv('REAL_ATT_DAY_FLEX_ID'), password: requireEnv('REAL_ATT_DAY_FLEX_PW') },
+    { label: '낮개인별일정근무', id: requireEnv('REAL_ATT_DAY_PERSONAL_ID'), password: requireEnv('REAL_ATT_DAY_PERSONAL_PW') },
 ];
 
 function normalizeText(value = '') {

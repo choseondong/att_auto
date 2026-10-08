@@ -3,11 +3,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// 계정 비밀번호는 코드에 두지 않고 .env 의 REAL_ATT_PASSWORD 로 읽는다 (여섯 계정 공통).
-const REAL_ATT_PASSWORD = process.env.REAL_ATT_PASSWORD;
+// 계정 아이디와 비밀번호는 코드에 두지 않고 .env 에서 읽는다 (.env.example 참고).
+function requireEnv(name) {
+    const value = process.env[name];
 
-if (!REAL_ATT_PASSWORD) {
-    throw new Error('.env 에 REAL_ATT_PASSWORD 값이 필요합니다. (.env.example 참고)');
+    if (!value) {
+        throw new Error(`.env 에 ${name} 값이 필요합니다. (.env.example 참고)`);
+    }
+
+    return value;
 }
 
 // real_att.spec.js 계정(work1~6, 18시 이후 근무) 6개의 출퇴근 기록만 초기화한다.
@@ -15,12 +19,12 @@ const REAL_HOME_URL = 'https://home.worksmobile.com/';
 const REAL_COMMUTE_URL_PATTERN = /workplace\.worksmobile\.com\/my-space\/commute\/commuteDetail/;
 
 const attendanceAccounts = [
-    { label: '고정근무', id: 'work1@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '선택근무', id: 'work2@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '시차근무', id: 'work3@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '교대근무', id: 'work4@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '탄력근무', id: 'work5@ncpworkplace.net', password: REAL_ATT_PASSWORD },
-    { label: '개인별일정근무', id: 'work6@ncpworkplace.net', password: REAL_ATT_PASSWORD },
+    { label: '고정근무', id: requireEnv('REAL_ATT_FIXED_ID'), password: requireEnv('REAL_ATT_FIXED_PW') },
+    { label: '선택근무', id: requireEnv('REAL_ATT_FREE_ID'), password: requireEnv('REAL_ATT_FREE_PW') },
+    { label: '시차근무', id: requireEnv('REAL_ATT_PICK_ID'), password: requireEnv('REAL_ATT_PICK_PW') },
+    { label: '교대근무', id: requireEnv('REAL_ATT_SHIFT_ID'), password: requireEnv('REAL_ATT_SHIFT_PW') },
+    { label: '탄력근무', id: requireEnv('REAL_ATT_FLEX_ID'), password: requireEnv('REAL_ATT_FLEX_PW') },
+    { label: '개인별일정근무', id: requireEnv('REAL_ATT_PERSONAL_ID'), password: requireEnv('REAL_ATT_PERSONAL_PW') },
 ];
 
 async function allowPermissionPrompt(page) {
